@@ -19,8 +19,8 @@ class AttrPredictor(object):
             self.attr_idx2name[i] = line.strip('\n').split()[0]
 
     def print_attr_name(self, pred_idx):
-        for idx in pred_idx:
-            print(self.attr_idx2name[idx])
+        for idx in pred_idx:            
+            print(self.attr_idx2name[idx],idx)
 
     def show_prediction(self, pred):
         if isinstance(pred, torch.Tensor):
@@ -32,12 +32,7 @@ class AttrPredictor(object):
 
         for i in range(pred.size(0)):
             indexes = np.argsort(data[i])[::-1]
-            idx3, idx5, idx10 = indexes[:3], indexes[:5], indexes[:10]
-            print('[ Top3 Prediction ]')
-            self.print_attr_name(idx3)
-
+            idx5= indexes[:5]
+            
             print('[ Top5 Prediction ]')
             self.print_attr_name(idx5)
-
-            print('[ Top10 Prediction ]')
-            self.print_attr_name(idx10)
