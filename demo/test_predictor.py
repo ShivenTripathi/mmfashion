@@ -16,16 +16,16 @@ def parse_args():
         '--input',
         type=str,
         help='input image path',
-        default='demo/imgs')
+        default='/content/drive/My Drive/dataset/nordstrom/img/1')
     parser.add_argument(
         '--checkpoint',
         type=str,
         help='checkpoint file',
-        default='checkpoint/Predict/vgg/global/latest.pth')
+        default='/content/mmfashion/checkpoint/Predict/vgg/global/latest.pth')
     parser.add_argument(
         '--config',
         help='test config file path',
-        default='configs/attribute_predict/global_predictor_vgg_attr.py')
+        default='/content/mmfashion/configs/attribute_predict/global_predictor_vgg_attr.py')
     parser.add_argument(
         '--use_cuda', type=bool, default=True, help='use gpu or not')
     args = parser.parse_args()
@@ -43,7 +43,7 @@ def main():
         model.cuda()
     model.eval()
     attr_predictor = AttrPredictor(cfg.data.test)
-    files=sort(os.listdir(args.input))
+    files=os.listdir(args.input)
     for i in tqdm(range(len(files))) :
       filename=files[i]
       #print(filename)      
