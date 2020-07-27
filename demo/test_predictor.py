@@ -3,7 +3,7 @@ import argparse
 import os
 from mmcv import Config
 from mmcv.runner import load_checkpoint
-
+from tqdm import tqdm
 from mmfashion.core import AttrPredictor
 from mmfashion.models import build_predictor
 from mmfashion.utils import get_img_tensor
@@ -43,9 +43,10 @@ def main():
         model.cuda()
     model.eval()
     attr_predictor = AttrPredictor(cfg.data.test)
-
-    for filename in os.listdir(args.input):
-      print(filename)      
+    files=sort(os.listdir(args.input))
+    for i in tqdm(range(len(files))) :
+      filename=files[i]
+      #print(filename)      
       filename=args.input+'/'+filename
       img_tensor = get_img_tensor(filename, args.use_cuda) 
       attr_prob = model(img_tensor, attr=None, landmark=None, return_loss=False)
