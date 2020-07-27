@@ -20,7 +20,7 @@ class AttrPredictor(object):
 
     def print_attr_name(self, pred_idx):
         for idx in pred_idx:            
-            print(self.attr_idx2name[idx],idx)
+            #print(self.attr_idx2name[idx],idx)
             with open('/content/drive/My Drive/dataset/nordstrom/img/1/resuts.txt','a') as f:
               f.write(str(idx)+',')
     def show_prediction(self, pred,filename):
