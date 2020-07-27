@@ -45,11 +45,11 @@ def main():
     attr_predictor = AttrPredictor(cfg.data.test)
 
     for filename in os.listdir(args.input):
-      print(filename)
+      print(filename)      
       filename=args.input+'/'+filename
       img_tensor = get_img_tensor(filename, args.use_cuda) 
       attr_prob = model(img_tensor, attr=None, landmark=None, return_loss=False)
-      attr_predictor.show_prediction(attr_prob)
+      attr_predictor.show_prediction(attr_prob,filename)
 
 
 if __name__ == '__main__':

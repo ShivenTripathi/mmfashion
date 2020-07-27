@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-
+import os
 
 class AttrPredictor(object):
 
@@ -21,15 +21,17 @@ class AttrPredictor(object):
     def print_attr_name(self, pred_idx):
         for idx in pred_idx:            
             print(self.attr_idx2name[idx],idx)
-
-    def show_prediction(self, pred):
+            with open('resuts.txt','a') as f:
+              f.write(str(idx)+',')
+    def show_prediction(self, pred,filename):
         if isinstance(pred, torch.Tensor):
             data = pred.data.cpu().numpy()
         elif isinstance(pred, np.ndarray):
             data = pred
         else:
             raise TypeError('type {} cannot be calculated.'.format(type(pred)))
-
+        with open('resuts.txt','a') as f:
+              f.write('\n'+str(filename)+'\n')
         for i in range(pred.size(0)):
             indexes = np.argsort(data[i])[::-1]
             idx5= indexes[:5]
