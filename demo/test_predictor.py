@@ -1,6 +1,6 @@
 from __future__ import division
 import argparse
-
+import os
 from mmcv import Config
 from mmcv.runner import load_checkpoint
 
@@ -16,7 +16,7 @@ def parse_args():
         '--input',
         type=str,
         help='input image path',
-        default='demo/attr_pred_demo1.jpg')
+        default='demo/imgs')
     parser.add_argument(
         '--checkpoint',
         type=str,
@@ -36,21 +36,20 @@ def main():
     args = parse_args()
     cfg = Config.fromfile(args.config)
 
-    img_tensor = get_img_tensor(args.input, args.use_cuda)
-
     cfg.model.pretrained = None
     model = build_predictor(cfg.model)
     load_checkpoint(model, args.checkpoint, map_location='cpu')
     if args.use_cuda:
         model.cuda()
-
     model.eval()
-
-    # predict probabilities for each attribute
-    attr_prob = model(img_tensor, attr=None, landmark=None, return_loss=False)
     attr_predictor = AttrPredictor(cfg.data.test)
 
-    attr_predictor.show_prediction(attr_prob)
+    for filename in os.listdir(args.input):
+      print(filename)
+      filename=args.input+'/'+filename
+      img_tensor = get_img_tensor(filename, args.use_cuda) 
+      attr_prob = model(img_tensor, attr=None, landmark=None, return_loss=False)
+      attr_predictor.show_prediction(attr_prob)
 
 
 if __name__ == '__main__':
