@@ -23,6 +23,12 @@ class AttrPredictor(object):
             #print(self.attr_idx2name[idx],idx)
             with open('resuts.txt','a') as f:
               f.write(str(idx)+',')
+        with open('resuts.txt','a') as f:
+            f.write('\n')
+        for idx in pred_idx:
+            with open('results.txt','a') as f:
+              f.write(str(self.attr_idx2name[idx])+',')
+              
     def show_prediction(self, pred,filename):
         if isinstance(pred, torch.Tensor):
             data = pred.data.cpu().numpy()
@@ -34,7 +40,7 @@ class AttrPredictor(object):
               f.write('\n'+str(filename)+'\n')
         for i in range(pred.size(0)):
             indexes = np.argsort(data[i])[::-1]
-            idx5= indexes[:5]
+            idx5= indexes[:10]
             
             #print('[ Top5 Prediction ]')
             self.print_attr_name(idx5)
