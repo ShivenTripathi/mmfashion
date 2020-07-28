@@ -21,9 +21,9 @@ class AttrPredictor(object):
     def print_attr_name(self, pred_idx):
         for idx in pred_idx:            
             #print(self.attr_idx2name[idx],idx)
-            with open('resuts.txt','a') as f:
+            with open('results.txt','a') as f:
               f.write(str(idx)+',')
-        with open('resuts.txt','a') as f:
+        with open('results.txt','a') as f:
             f.write('\n')
         for idx in pred_idx:
             with open('results.txt','a') as f:
@@ -36,7 +36,7 @@ class AttrPredictor(object):
             data = pred
         else:
             raise TypeError('type {} cannot be calculated.'.format(type(pred)))
-        with open('resuts.txt','a') as f:
+        with open('results.txt','a') as f:
               f.write('\n'+str(filename)+'\n')
         for i in range(pred.size(0)):
             indexes = np.argsort(data[i])[::-1]
