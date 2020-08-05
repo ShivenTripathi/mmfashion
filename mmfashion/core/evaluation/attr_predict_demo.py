@@ -40,7 +40,7 @@ class AttrPredictor(object):
               f.write('\n'+str(filename)+'\n')
         for i in range(pred.size(0)):
             indexes = np.argsort(data[i])[::-1]
-            idx5= indexes[:10]
+            idx5= indexes
             
             #print('[ Top5 Prediction ]')
             self.print_attr_name(idx5)
